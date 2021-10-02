@@ -1,15 +1,20 @@
 version: "3.4"
 services:
-  nodejs-app:
-    container_name: nodejs-app
-    build: nodejs-app
-    ports:
-      - 3000:3000
-  mongodb:
+  mongodb-server:
     image: mongo
     ports:
       - 27017:27017
-#     volumes:
-#       - mongodb-volume:/data/db
-# volumes:
-#   - mongodb-volume: "./mongodb-volume/"
+    volumes:
+      - mongodb-volume:/data/db
+  redis-server:
+    image: redis
+    volumes:
+      - redis-volume:/data
+  express-app:
+    build: express-app
+    ports:
+      - 3000:3000
+
+volumes:
+  mongodb-volume:
+  redis-volume:

@@ -3,12 +3,22 @@ const bodyParser = require("body-parser");
 const { TodoModel } = require("./model");
 const Mongoose = require("mongoose");
 const cors = require("cors");
+const redis = require('redis');
 
+const client = redis.createClient(6379, "redis-server");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+client.on("error", error => {
+  console.error(error);
+});
+
+client.on('connect', function() {
+  console.log('Backend connected to Redis server!');
+});
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 app.get("/", (req, res) => {
@@ -30,10 +40,10 @@ app.post("/todo", (req, res) => {
 });
 
 app.listen(PORT, async () => {
-  console.log(`Sunucu çalışıyor... ${PORT} | MongoDB'ye bağlanılacak..`);
-  await Mongoose.connect("mongodb://mongodb:27017/todo", {
+  console.log(`Backend is connecting to MongoDb to ${PORT}  port!`);
+  await Mongoose.connect("mongodb://mongodb-server:27017/todo", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
-  console.log("MongoDB'ye bağlantı başarılı!");
+  console.log("Backend connected to MongoDb!");
 });
