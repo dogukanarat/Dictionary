@@ -5,9 +5,9 @@ const Mongoose = require("mongoose");
 const cors = require("cors");
 const redis = require('redis');
 
-const client = redis.createClient(6379, "redis-server");
+const client = redis.createClient(6379, "redis");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -59,8 +59,9 @@ app.post("/newlogin", (req, res) => {
 });
 
 app.listen(PORT, async () => {
-    console.log(`Backend is connecting to MongoDb to ${PORT}  port!`);
-    await Mongoose.connect("mongodb://mongodb-server:27017/todo", {
+    console.log("Backend is listening to port {PORT}")
+    console.log(`Backend is connecting to MongoDb`);
+    await Mongoose.connect("mongodb://mongo:27017/todo", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
