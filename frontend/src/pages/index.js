@@ -1,5 +1,4 @@
-import MoviesList from './MoviesList'
-import MoviesInsert from './MoviesInsert'
-import MoviesUpdate from './MoviesUpdate'
+import TodoList from './TodoList'
+import TodoInsert from './TodoInsert'
 
-export { MoviesList, MoviesInsert, MoviesUpdate }
+export { TodoList, TodoInsert }

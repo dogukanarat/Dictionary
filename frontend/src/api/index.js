@@ -1,21 +1,15 @@
 import axios from 'axios'
 
 const api = axios.create({
-    baseURL: 'http://localhost:5000/api',
+    baseURL: 'http://localhost:5000',
 })
 
-export const insertMovie = payload => api.post(`/movie`, payload)
-export const getAllMovies = () => api.get(`/movies`)
-export const updateMovieById = (id, payload) => api.put(`/movie/${id}`, payload)
-export const deleteMovieById = id => api.delete(`/movie/${id}`)
-export const getMovieById = id => api.get(`/movie/${id}`)
+export const insertTodo = payload => api.post(`/newtodo`, payload)
+export const getAllTodo = () => api.get(`/listtodo`)
 
 const apis = {
-    insertMovie,
-    getAllMovies,
-    updateMovieById,
-    deleteMovieById,
-    getMovieById,
+    insertTodo,
+    getAllTodo,
 }
 
 export default apis

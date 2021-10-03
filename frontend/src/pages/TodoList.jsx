@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import ReactTable from 'react-table'
 import api from '../api'
-
 import styled from 'styled-components'
 
 import 'react-table/react-table.css'
@@ -51,11 +50,11 @@ class DeleteMovie extends Component {
     }
 }
 
-class MoviesList extends Component {
+class TodoList extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            movies: [],
+            todos: [],
             columns: [],
             isLoading: false,
         }
@@ -64,17 +63,17 @@ class MoviesList extends Component {
     componentDidMount = async () => {
         this.setState({ isLoading: true })
 
-        await api.getAllMovies().then(movies => {
+        await api.getAllTodo().then(todos => {
             this.setState({
-                movies: movies.data.data,
+                todos: todos.data,
                 isLoading: false,
             })
         })
     }
 
     render() {
-        const { movies, isLoading } = this.state
-        console.log('TCL: MoviesList -> render -> movies', movies)
+        const { todos, isLoading } = this.state
+        console.log('TCL: TodoList -> render -> todos', todos)
 
         const columns = [
             {
@@ -83,46 +82,19 @@ class MoviesList extends Component {
                 filterable: true,
             },
             {
-                Header: 'Name',
-                accessor: 'name',
+                Header: 'Title',
+                accessor: 'title',
                 filterable: true,
             },
             {
-                Header: 'Rating',
-                accessor: 'rating',
+                Header: 'Description',
+                accessor: 'description',
                 filterable: true,
-            },
-            {
-                Header: 'Time',
-                accessor: 'time',
-                Cell: props => <span>{props.value.join(' / ')}</span>,
-            },
-            {
-                Header: '',
-                accessor: '',
-                Cell: function(props) {
-                    return (
-                        <span>
-                            <DeleteMovie id={props.original._id} />
-                        </span>
-                    )
-                },
-            },
-            {
-                Header: '',
-                accessor: '',
-                Cell: function(props) {
-                    return (
-                        <span>
-                            <UpdateMovie id={props.original._id} />
-                        </span>
-                    )
-                },
             },
         ]
 
         let showTable = true
-        if (!movies.length) {
+        if (!todos.length) {
             showTable = false
         }
 
@@ -130,7 +102,7 @@ class MoviesList extends Component {
             <Wrapper>
                 {showTable && (
                     <ReactTable
-                        data={movies}
+                        data={todos}
                         columns={columns}
                         loading={isLoading}
                         defaultPageSize={10}
@@ -143,4 +115,4 @@ class MoviesList extends Component {
     }
 }
 
-export default MoviesList
+export default TodoList
