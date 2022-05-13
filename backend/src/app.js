@@ -1,17 +1,17 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const { TodoModel } = require("./model");
+const Express = require("express");
+const BodyParser = require("body-parser");
+const { PostModel } = require("./model");
 const Mongoose = require("mongoose");
-const cors = require("cors");
-const redis = require('redis');
+const Cors = require("cors");
+const Redis = require('redis');
 
-const client = redis.createClient(6379, "redis");
-const app = express();
+const client = Redis.createClient(6379, "redis");
+const app = Express();
 const PORT = process.env.PORT || 5000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(Express.json());
+app.use(Express.urlencoded({ extended: true }));
+app.use(Cors());
 
 client.on("error", error => {
     console.error(error);
@@ -22,13 +22,15 @@ client.on('connect', function () {
 });
 
 app.get('/', function (req, res) {
-    res.send('hello world');
+    res.send('This is backend server');
 });
 
-app.get("/listtodo", (req, res) => {
-    TodoModel.find({})
-        .then((todoList) => res.status(200).json(todoList))
-        .catch((e) => res.status(500).json(e));
+app.get("/postList", (req, res) => {
+    PostModel.find({})
+        .then((posts) => res.status(200).json(posts))
+        .catch((e) => {
+            return res.status(500).json(e);
+        });
 });
 
 app.get("/listlogin", (req, res) => {
@@ -38,8 +40,8 @@ app.get("/listlogin", (req, res) => {
     });
 });
 
-app.post("/newtodo", (req, res) => {
-    const todo = new TodoModel({
+app.post("/postNew", (req, res) => {
+    const todo = new PostModel({
         ...req.body,
         created_at: new Date(),
     });

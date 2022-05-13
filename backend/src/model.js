@@ -1,6 +1,6 @@
 const Mongoose = require("mongoose");
 
-const todoSchema = new Mongoose.Schema({
+const postSchema = new Mongoose.Schema({
   title: String,
   description: String,
   completed: Boolean,
@@ -8,5 +8,5 @@ const todoSchema = new Mongoose.Schema({
 });
 
 module.exports = {
-  TodoModel: Mongoose.model("todo", todoSchema),
+  PostModel: Mongoose.model("todo", postSchema),
 };

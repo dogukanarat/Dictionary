@@ -35,7 +35,7 @@ const CancelButton = styled.a.attrs({
     margin: 15px 15px 15px 5px;
 `
 
-class TodoInsert extends Component {
+class PostNew extends Component {
     constructor(props) {
         super(props)
 
@@ -55,7 +55,7 @@ class TodoInsert extends Component {
         this.setState({ description })
     }
 
-    handleNewTodo = async () => {
+    handleNewPost = async () => {
         const { title, description } = this.state
         const payload =
         {
@@ -64,8 +64,8 @@ class TodoInsert extends Component {
             "completed": true
         }
 
-        await api.insertTodo(payload).then(res => {
-            window.alert(`Movie inserted successfully`)
+        await api.postNew(payload).then(res => {
+            window.alert(`New post is added successfully!`)
             this.setState({
                 title: '',
                 description: '',
@@ -77,7 +77,7 @@ class TodoInsert extends Component {
         const { title, description } = this.state
         return (
             <Wrapper>
-                <Title>New Todo</Title>
+                <Title>New Post</Title>
 
                 <Label>Title: </Label>
                 <InputText
@@ -93,11 +93,11 @@ class TodoInsert extends Component {
                     onChange={this.handleChangeDescription}
                 />
 
-                <Button onClick={this.handleNewTodo}>Add Todo</Button>
-                <CancelButton href={'/movies/list'}>Cancel</CancelButton>
+                <Button onClick={this.handleNewPost}>Add Post</Button>
+                <CancelButton href={'/post/list'}>Cancel</CancelButton>
             </Wrapper>
         )
     }
 }
 
-export default TodoInsert
+export default PostNew

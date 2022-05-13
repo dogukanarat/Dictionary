@@ -20,7 +20,7 @@ services:
     build: frontend
     stdin_open: true
     ports:
-      - 3000:3000
+      - 80:3000
 
 volumes:
   mongodbvolume:

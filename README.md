@@ -1,2 +1,2 @@
-# reservation-app
-Reservation app repo
+# Dictionary
+EksiSozluk Clone

@@ -1,4 +1,4 @@
-import TodoList from './TodoList'
-import TodoInsert from './TodoInsert'
+import PostList from './PostList'
+import PostNew from './PostNew'
 
-export { TodoList, TodoInsert }
+export { PostList, PostNew }
