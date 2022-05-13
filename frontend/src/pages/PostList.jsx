@@ -1,5 +1,4 @@
-import React, { Component, useMemo } from 'react'
-import useTable from 'react-table'
+import React, { Component } from 'react'
 import Api from '../api'
 import Styled from 'styled-components'
 
@@ -73,48 +72,7 @@ class PostDelete extends Component {
     }
 }
 
-function Table({ columns, data }) {
-    // Use the state and functions returned from useTable to build your UI
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
-    } = useTable({
-        columns,
-        data,
-    })
-
-    // Render the UI for your table
-    return (
-        <table {...getTableProps()}>
-            <thead>
-                {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()}>{column.render('Header')}</th>
-                        ))}
-                    </tr>
-                ))}
-            </thead>
-            <tbody {...getTableBodyProps()}>
-                {rows.map((row, i) => {
-                    prepareRow(row)
-                    return (
-                        <tr {...row.getRowProps()}>
-                            {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                            })}
-                        </tr>
-                    )
-                })}
-            </tbody>
-        </table>
-    )
-}
-
-function TableContent(props) {
+function Table(props) {
 
     const columns = React.useMemo(
         () => [
@@ -137,7 +95,18 @@ function TableContent(props) {
     console.log(props.data)
 
     return (
-        <Table columns={columns} data={data} />
+        <table>
+            <thead>
+            <tr>
+                <td>asdasd</td>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>asdasdasd</td>
+                </tr>
+            </tbody>
+        </table>
     )
 }
 
@@ -165,7 +134,7 @@ class PostList extends Component {
 
     render() {
         const { posts, isLoading } = this.state
-        console.log('TCL: TodoList -> render -> todos', posts)
+        console.log('PostList -> Render -> Posts: ', posts)
 
         let showTable = true
 
@@ -176,7 +145,7 @@ class PostList extends Component {
         return (
             <Wrapper>
                 {showTable &&
-                    <TableContent data={posts} />}
+                    <Table data={posts} />}
             </Wrapper>
         )
     }

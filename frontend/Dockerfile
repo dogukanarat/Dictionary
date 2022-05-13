@@ -1,8 +1,8 @@
-FROM node:14-slim
+FROM node:18-slim
 
 WORKDIR /usr/src/app
 
-COPY ./yarn.json ./
+COPY ./yarn.lock ./
 COPY ./package.json ./
 
 RUN yarn install
