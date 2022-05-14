@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import api from '../api'
 
+import { Card, InPageNotification } from '../components'
 import styled from 'styled-components'
 
 const Title = styled.h1.attrs({
@@ -8,9 +9,8 @@ const Title = styled.h1.attrs({
 })``
 
 const Wrapper = styled.div.attrs({
-    className: 'form-group',
+    className: 'jumbotron'
 })`
-    margin: 0 30px;
 `
 
 const Label = styled.label`
@@ -35,66 +35,96 @@ const CancelButton = styled.a.attrs({
     margin: 15px 15px 15px 5px;
 `
 
+const PostNewFormWrapper = styled.div.attrs({
+})`
+`
+
+function PostNewForm(props) {
+
+    return (
+        <PostNewFormWrapper>
+            <Label>Title: </Label>
+            <InputText
+                type="text"
+                value={props.title}
+                onChange={(event) => { props.onTitleUpdated(event) }}
+            />
+
+            <Label>Content: </Label>
+            <InputText
+                type="text"
+                value={props.content}
+                onChange={(event) => { props.onContentUpdated(event) }}
+            />
+
+            <Button onClick={() => { props.onNewPostCreated() }}>Add Post</Button>
+            <CancelButton href={'/post/list'}>Cancel</CancelButton>
+        </PostNewFormWrapper>
+    )
+}
+
 class PostNew extends Component {
     constructor(props) {
         super(props)
 
         this.state = {
             title: '',
-            description: '',
+            content: '',
+            isSuccessful: false,
         }
+
+        this.handleChangeTitle = this.handleChangeTitle.bind(this);
+        this.handleChangeContent = this.handleChangeContent.bind(this);
+        this.handleNewPost = this.handleNewPost.bind(this);
     }
 
     handleChangeTitle = async event => {
         const title = event.target.value
         this.setState({ title })
+        this.setState({ isSuccessful: false })
     }
 
-    handleChangeDescription = async event => {
-        const description = event.target.value
-        this.setState({ description })
+    handleChangeContent = async event => {
+        const content = event.target.value
+        this.setState({ content })
+        this.setState({ isSuccessful: false })
     }
 
-    handleNewPost = async () => {
-        const { title, description } = this.state
+    handleNewPost = async (event) => {
+        const { title, content } = this.state
+
         const payload =
         {
             "title": title,
-            "description": description,
+            "description": content,
             "completed": true
         }
 
         await api.postNew(payload).then(res => {
-            window.alert(`New post is added successfully!`)
             this.setState({
                 title: '',
-                description: '',
+                content: '',
+                isSuccessful: true,
             })
         })
     }
 
     render() {
-        const { title, description } = this.state
+        const { title, content, isSuccessful } = this.state
         return (
             <Wrapper>
-                <Title>New Post</Title>
-
-                <Label>Title: </Label>
-                <InputText
-                    type="text"
-                    value={title}
-                    onChange={this.handleChangeTitle}
-                />
-
-                <Label>Description: </Label>
-                <InputText
-                    type="text"
-                    value={description}
-                    onChange={this.handleChangeDescription}
-                />
-
-                <Button onClick={this.handleNewPost}>Add Post</Button>
-                <CancelButton href={'/post/list'}>Cancel</CancelButton>
+                {isSuccessful &&
+                    <InPageNotification variant="success">New post is added successfully!</InPageNotification>
+                }
+                <Card header="Post New">
+                    <PostNewForm
+                        title={title}
+                        content={content}
+                        onTitleUpdated={this.handleChangeTitle}
+                        onContentUpdated={this.handleChangeContent}
+                        onNewPostCreated={this.handleNewPost}
+                    />
+                </Card>
             </Wrapper>
         )
     }
