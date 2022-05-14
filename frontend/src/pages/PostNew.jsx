@@ -116,7 +116,7 @@ class PostNew extends Component {
                 {isSuccessful &&
                     <InPageNotification variant="success">New post is added successfully!</InPageNotification>
                 }
-                <Card header="Post New">
+                <Card header="New Post">
                     <PostNewForm
                         title={title}
                         content={content}
