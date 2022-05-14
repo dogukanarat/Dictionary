@@ -17,6 +17,11 @@ const Delete = Styled.div`
     cursor: pointer;
 `
 
+const PostListGroup = Styled.div.attrs({
+    className: "list-group"
+})`
+`
+
 class PostUpdate extends Component {
     updateUser = event => {
         event.preventDefault()
@@ -86,6 +91,18 @@ function Table(props) {
     )
 }
 
+function PostListGroupItem(props) {
+    return (
+        <a href={props.link} class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{props.title}</h5>
+                <small>{props.timeDifference}</small>
+            </div>
+            <p class="mb-1">{props.content}</p>
+            <small>{props.author}</small>
+        </a>
+    )
+}
 
 class PostList extends Component {
     constructor(props) {
@@ -110,7 +127,6 @@ class PostList extends Component {
 
     render() {
         const { posts, isLoading } = this.state
-        console.log('PostList -> Render -> Posts: ', posts)
 
         let showTable = true
 
@@ -120,32 +136,21 @@ class PostList extends Component {
 
         return (
             <Wrapper>
-                <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start active">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small>3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small>Donec id elit non mi porta.</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small class="text-muted">3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                        <div class="d-flex w-100 justify-content-between">
-                            <h5 class="mb-1">List group item heading</h5>
-                            <small class="text-muted">3 days ago</small>
-                        </div>
-                        <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                        <small class="text-muted">Donec id elit non mi porta.</small>
-                    </a>
-                </div>
+                <PostListGroup>
+                    {posts.map(item => {
+                        return (
+                            <PostListGroupItem
+                                title={item.title}
+                                content={item.description}
+                                timeDifference="3 day ago"
+                                author="testAuthor"
+                                link={"post?id=" + item._id}
+                            />
+                        )
+                        })
+                    }
+
+                </PostListGroup>
                 <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center mr-6">
                         <li class="page-item disabled">

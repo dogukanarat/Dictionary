@@ -23,6 +23,12 @@ const InputText = styled.input.attrs({
     margin: 5px;
 `
 
+const InputTextWide = styled.textarea.attrs({
+    className: 'form-control',
+})`
+    margin: 5px;
+`
+
 const Button = styled.button.attrs({
     className: `btn btn-primary`,
 })`
@@ -51,7 +57,7 @@ function PostNewForm(props) {
             />
 
             <Label>Content: </Label>
-            <InputText
+            <InputTextWide
                 type="text"
                 value={props.content}
                 onChange={(event) => { props.onContentUpdated(event) }}
