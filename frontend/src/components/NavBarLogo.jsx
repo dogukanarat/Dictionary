@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
 
 import logo from '../logo.svg'
 
-const Wrapper = styled.a.attrs({
+const Wrapper = Styled.div.attrs({
     className: 'navbar-brand',
 })``
 

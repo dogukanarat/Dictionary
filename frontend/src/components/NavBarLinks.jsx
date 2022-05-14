@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import styled from 'styled-components'
+import Styled from 'styled-components'
 
-const Wrapper = styled.div.attrs({
+const Wrapper = Styled.div.attrs({
     className: 'collapse navbar-collapse',
 })``
 
-const List = styled.div.attrs({
+const List = Styled.div.attrs({
     className: 'navbar-nav mr-auto',
 })`
 `
 
-const Item = styled.div.attrs({
+const Item = Styled.div.attrs({
     className: 'collapse navbar-collapse navbar-brand',
 })``
 
