@@ -6,6 +6,7 @@ import { PostList, PostNew } from './pages'
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Home = () => <h1>Home</h1>
+const NoPage = () => <h1>No Page!</h1>
 
 export default function App() {
     return (
