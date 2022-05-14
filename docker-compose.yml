@@ -1,4 +1,5 @@
 version: "3.4"
+
 services:
   mongo:
     image: mongo
@@ -6,16 +7,21 @@ services:
       - 27017:27017
     volumes:
       - mongodbvolume:/data/db
+
   redis:
     image: redis
     ports:
       - 6379:6379
     volumes:
       - redisvolume:/data
+
   backend:
     build: backend
     ports:
       - 5000:5000
+    volumes:
+      - ./backend:/usr/src/app
+
   frontend:
     build: frontend
     stdin_open: true

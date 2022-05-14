@@ -1,6 +1,6 @@
 FROM node:14-slim
 
-WORKDIR /opt/express-app
+WORKDIR /usr/src/app
 
 COPY . .
 
