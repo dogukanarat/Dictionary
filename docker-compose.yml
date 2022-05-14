@@ -1,15 +1,30 @@
 version: "3.4"
 services:
-  nodejs-app:
-    container_name: nodejs-app
-    build: nodejs-app
-    ports:
-      - 3000:3000
-  mongodb:
+  mongo:
     image: mongo
     ports:
       - 27017:27017
-#     volumes:
-#       - mongodb-volume:/data/db
-# volumes:
-#   - mongodb-volume: "./mongodb-volume/"
+    volumes:
+      - mongodbvolume:/data/db
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
+    volumes:
+      - redisvolume:/data
+  backend:
+    build: backend
+    ports:
+      - 5000:5000
+  frontend:
+    build: frontend
+    stdin_open: true
+    ports:
+      - 80:3000
+    volumes:
+      - ./frontend:/usr/src/app
+
+volumes:
+  mongodbvolume:
+  redisvolume:
+  
