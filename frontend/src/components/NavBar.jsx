@@ -1,28 +1,23 @@
 import React, { Component } from 'react'
-import styled from 'styled-components'
+import Styled from 'styled-components'
 
 import NavBarLogo from './NavBarLogo'
 import NavBarLinks from './NavBarLinks'
+import NavBarSearch from './NavBarSearch'
 
-const Container = styled.div.attrs({
-    className: 'container',
-})``
-
-const Nav = styled.nav.attrs({
-    className: 'navbar navbar-light bg-light',
+const NavBarContainer = Styled.nav.attrs({
+    className: 'navbar navbar-expand-md navbar-dark fixed-top bg-dark',
 })`
-    margin-bottom: 20 px;
 `
 
 class NavBar extends Component {
     render() {
         return (
-            <Container>
-                <Nav>
-                    <NavBarLogo />
-                    <NavBarLinks />
-                </Nav>
-            </Container>
+            <NavBarContainer>
+                <NavBarLogo />
+                <NavBarLinks />
+                <NavBarSearch />
+            </NavBarContainer>
         )
     }
 }

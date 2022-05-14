@@ -2,42 +2,40 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const Collapse = styled.div.attrs({
-    className: 'collpase navbar-collapse',
+const Wrapper = styled.div.attrs({
+    className: 'collapse navbar-collapse',
 })``
 
 const List = styled.div.attrs({
     className: 'navbar-nav mr-auto',
-})``
+})`
+`
 
 const Item = styled.div.attrs({
-    className: 'collpase navbar-collapse',
+    className: 'collapse navbar-collapse navbar-brand',
 })``
 
-class Links extends Component {
+class NavBarLinks extends Component {
     render() {
         return (
             <React.Fragment>
-                <Link to="/" className="navbar-brand">
-                    Simple Dictionary
-                </Link>
-                <Collapse>
+                <Wrapper>
                     <List>
                         <Item>
                             <Link to="/post/list" className="nav-link">
-                                List Todos
+                                Posts
                             </Link>
                         </Item>
                         <Item>
                             <Link to="/post/new" className="nav-link">
-                                Create Todo
+                                New
                             </Link>
                         </Item>
                     </List>
-                </Collapse>
+                </Wrapper>
             </React.Fragment>
         )
     }
 }
 
-export default Links
+export default NavBarLinks
