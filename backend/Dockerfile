@@ -1,9 +1,14 @@
-FROM node:14-slim
+FROM node:18-slim
 
 WORKDIR /usr/src/app
 
+COPY ./yarn.lock ./
+COPY ./package.json ./
+
 COPY . .
 
-RUN npm install
+RUN yarn install
 
-CMD ["node", "src/app.js"]
+EXPOSE 5000
+
+CMD ["yarn", "start"]
