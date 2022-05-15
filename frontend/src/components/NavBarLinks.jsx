@@ -31,6 +31,11 @@ class NavBarLinks extends Component {
                                 New
                             </Link>
                         </Item>
+                        <Item>
+                            <Link to="/post/list" className="nav-link">
+                                Login
+                            </Link>
+                        </Item>
                     </List>
                 </Wrapper>
             </React.Fragment>

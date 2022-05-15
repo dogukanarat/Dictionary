@@ -7,89 +7,51 @@ const Wrapper = Styled.div.attrs({
 })`
 `
 
-const Update = Styled.div`
-    color: #ef9b0f;
-    cursor: pointer;
-`
+// const Update = Styled.div`
+//     color: #ef9b0f;
+//     cursor: pointer;
+// `
 
-const Delete = Styled.div`
-    color: #ff0000;
-    cursor: pointer;
-`
+// const Delete = Styled.div`
+//     color: #ff0000;
+//     cursor: pointer;
+// `
 
 const PostListGroup = Styled.div.attrs({
     className: "list-group"
 })`
 `
 
-class PostUpdate extends Component {
-    updateUser = event => {
-        event.preventDefault()
+// class PostUpdate extends Component {
+//     updateUser = event => {
+//         event.preventDefault()
 
-        window.location.href = `/movies/update/${this.props.id}`
-    }
+//         window.location.href = `/movies/update/${this.props.id}`
+//     }
 
-    render() {
-        return <Update onClick={this.updateUser}>Update</Update>
-    }
-}
+//     render() {
+//         return <Update onClick={this.updateUser}>Update</Update>
+//     }
+// }
 
-class PostDelete extends Component {
-    deleteUser = event => {
-        event.preventDefault()
+// class PostDelete extends Component {
+//     deleteUser = event => {
+//         event.preventDefault()
 
-        if (
-            window.confirm(
-                `Do you want to delete the post ${this.props.id} permanently?`,
-            )
-        ) {
-            Api.deleteMovieById(this.props.id)
-            window.location.reload()
-        }
-    }
+//         if (
+//             window.confirm(
+//                 `Do you want to delete the post ${this.props.id} permanently?`,
+//             )
+//         ) {
+//             Api.deleteMovieById(this.props.id)
+//             window.location.reload()
+//         }
+//     }
 
-    render() {
-        return <Delete onClick={this.deleteUser}>Delete</Delete>
-    }
-}
-
-function Table(props) {
-
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'Id',
-                accessor: '_id',
-            },
-            {
-                Header: 'Title',
-                accessor: 'title',
-            },
-            {
-                Header: 'Description',
-                accessor: 'description',
-            },
-        ], [])
-
-    const data = React.useMemo(() => props.data, [])
-
-    console.log(props.data)
-
-    return (
-        <table>
-            <thead>
-                <tr>
-                    <td>asdasd</td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>asdasdasd</td>
-                </tr>
-            </tbody>
-        </table>
-    )
-}
+//     render() {
+//         return <Delete onClick={this.deleteUser}>Delete</Delete>
+//     }
+// }
 
 function PostListGroupItem(props) {
     return (
@@ -126,13 +88,7 @@ class PostList extends Component {
     }
 
     render() {
-        const { posts, isLoading } = this.state
-
-        let showTable = true
-
-        if (!posts.length) {
-            showTable = false
-        }
+        const { posts } = this.state
 
         return (
             <Wrapper>
@@ -141,7 +97,7 @@ class PostList extends Component {
                         return (
                             <PostListGroupItem
                                 title={item.title}
-                                content={item.description}
+                                content={item.content}
                                 timeDifference="3 day ago"
                                 author="testAuthor"
                                 link={"post?id=" + item._id}
@@ -151,7 +107,7 @@ class PostList extends Component {
                     }
 
                 </PostListGroup>
-                <nav aria-label="Page navigation example">
+                {/* <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center mr-6">
                         <li class="page-item">
                             <a class="page-link" href="#" tabindex="-1">{"<"}</a>
@@ -163,7 +119,7 @@ class PostList extends Component {
                             <a class="page-link" href="#">{">"}</a>
                         </li>
                     </ul>
-                </nav>
+                </nav> */}
             </Wrapper>
         )
     }

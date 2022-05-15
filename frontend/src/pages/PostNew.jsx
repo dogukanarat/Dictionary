@@ -4,10 +4,6 @@ import api from '../api'
 import { Card, InPageNotification } from '../components'
 import styled from 'styled-components'
 
-const Title = styled.h1.attrs({
-    className: 'h1',
-})``
-
 const Wrapper = styled.div.attrs({
     className: 'jumbotron'
 })`
@@ -102,9 +98,10 @@ class PostNew extends Component {
         const payload =
         {
             "title": title,
-            "description": content,
-            "completed": true
+            "content": content
         }
+
+        console.log(payload)
 
         await api.postNew(payload).then(res => {
             this.setState({
@@ -112,6 +109,8 @@ class PostNew extends Component {
                 content: '',
                 isSuccessful: true,
             })
+
+            console.log(res)
         })
     }
 
