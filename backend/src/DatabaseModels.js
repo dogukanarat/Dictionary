@@ -3,7 +3,7 @@ import Mongoose from 'mongoose'
 const schemaPost = new Mongoose.Schema({
     title: String,
     content: String,
-    completed: Boolean,
+    author: String,
     createdTime: Date,
 });
 
@@ -16,4 +16,4 @@ const schemaUser = new Mongoose.Schema({
 const modelPost = Mongoose.model("Post", schemaPost);
 const modelUser = Mongoose.model("User", schemaUser);
 
-export { modelPost }
+export { modelPost, modelUser}

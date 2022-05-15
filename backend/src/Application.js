@@ -5,7 +5,8 @@ import Session from 'express-session'
 import CookieParser from 'cookie-parser'
 
 import { modelPost } from './DatabaseModels.js'
-import RouteUserManager from './UserManager.js'
+import { userLogin, userLogout, userRegister,} from './UserManager.js'
+import { postList, postDelete, postNew} from './PostManager.js'
 import RedisClient from './RedisClient.js'
 
 const expressApp = Express();
@@ -38,43 +39,21 @@ expressApp.get('/', function (req, res) {
     res.send(message);
 });
 
-expressApp.get("/posts", (req, res) => {
-    modelPost.find({})
-        .then((posts) => res.status(200).json(posts))
-        .catch((e) => {
-            return res.status(500).json(e);
-        });
-});
-
-expressApp.get("/listlogin", (req, res) => {
-    redisClient.get('login', function (err, reply) {
-        console.log(reply);
-        res.status(200).send("Successful");
-    });
-});
-
-expressApp.post("/new/post", (req, res) => {
-    const todo = new modelPost({
-        ...req.body,
-        created_at: new Date(),
-    });
-
-    todo
-        .save()
-        .then((savedTodo) => res.status(200).json(savedTodo))
-        .catch((e) => res.status(400).json(e));
-});
-
-expressApp.use("/user", RouteUserManager)
+expressApp.post("/post/new", postNew)
+expressApp.post("/post/delete", postDelete)
+expressApp.get("/post/list", postList)
+expressApp.post("/user/login", userLogin)
+expressApp.get("/user/logout", userLogout)
+expressApp.post("/user/register", userRegister)
 
 expressApp.listen(listenPort, async () => {
     console.log(`Backend is listening to port ${listenPort}`)
-    console.log(`Backend is connecting to MongoDb`);
+    console.log(`Backend is connecting to MongoDB`);
 
-    await Mongoose.connect("mongodb://mongo:27017/todo", {
+    await Mongoose.connect("mongodb://mongo:27017/Dictionary", {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
 
-    console.log("Backend connected to MongoDb!");
+    console.log("Backend connected to MongoDB!");
 });

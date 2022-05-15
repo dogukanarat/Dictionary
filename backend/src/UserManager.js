@@ -1,80 +1,142 @@
-import Express from 'express'
-import { modelPost } from './DatabaseModels.js'
-import RedisClient from './RedisClient.js'
+import { modelUser } from './DatabaseModels.js'
+import redisClient from './RedisClient.js'
 
-const router = Express.Router()
-
-router.post("/login", (req, res, next) => {
+const userLogin = (req, res) => {
     const { username, password } = req.body
 
-    console.log(username, password)
-
-    if(username && password) {
-
-        if (req.session.username == null) {
-            req.session.regenerate((err) => {
-                if (err) next(err)
-    
-                // store user information in session, typically a user id
-                req.session.username = username
-    
-                // save the session before redirection to ensure page
-                // load does not happen before session is saved
-                req.session.save((err) => {
-                    if (err) return next(err)
-                    res.status(200).json({
-                        message: `Login success with ${req.session.username}`,
-                        time: new Date()
-                    })
-                })
-            })
-    
-        } else {
-            res.status(200).json({
-                message: `Already logon with ${req.session.username}`,
-                time: new Date()
-            })
-        }
-    } else {
+    if (!username || !password) {
         res.status(200).json({
             message: `Username or password is empty!`,
             time: new Date()
         })
+        return;
     }
-    
 
+    if (req.session.username != null) {
+        res.status(200).json({
+            message: `Already logon with ${req.session.username}`,
+            time: new Date()
+        })
+        return;
+    }
 
-});
+    modelUser
+        .findOne({ username: username, password: password })
+        .then((result) => {
+            if (result == null) {
+                res.status(200).json({
+                    message: `Username or password is wrong!`,
+                    time: new Date()
+                });
+                return;
+            }
+        })
+        .catch((err) => {
+            res.status(500).json(err)
+            return
+        });
 
-router.get("/logout", (req, res, next) => {
+    req.session.regenerate((err) => {
+        if (err) next(err)
+
+        req.session.username = username
+        
+
+        req.session.save((err) => {
+            if (err) return next(err)
+            res.status(200).json({
+                message: `Login success with ${req.session.username}`,
+                time: new Date()
+            })
+        })
+    })
+
+};
+
+const userLogout = (req, res, next) => {
 
     if (!req.session.username) {
         res.status(200).json({
             message: "Not logon yet!",
             time: new Date()
         })
-    } else {
-        req.session.username = null
-        req.session.save(function (err) {
-            if (err) next(err)
-
-            // regenerate the session, which is good practice to help
-            // guard against forms of session fixation
-            req.session.regenerate(function (err) {
-                if (err) next(err)
-                res.status(200).json({
-                    message: "Logout success!",
-                    time: new Date()
-                })
-            })
-        })
+        return;
     }
 
+    req.session.username = null
+    req.session.save(function (err) {
+        if (err) next(err)
 
-});
+        req.session.regenerate(function (err) {
+            if (err) next(err)
+            res.status(200).json({
+                message: "Logout success!",
+                time: new Date()
+            })
+        })
+    })
 
-router.post("/register", (req, res, next) => {
+};
 
-});
+const userRegister = (req, res, next) => {
 
-export default router
+    const { username, password } = req.body
+
+    if (!username || !password) {
+        res.status(200).json({
+            message: `Username or password is empty!`,
+            time: new Date()
+        })
+        return;
+    }
+
+    if (req.session.username != null) {
+        res.status(200).json({
+            message: `Already logon with ${req.session.username}`,
+            time: new Date()
+        })
+        return;
+    }
+
+    modelUser
+        .findOne({ username: username })
+        .then((result) => {
+
+            if (result != null) {
+                res.status(200).json({
+                    message: `Username ${username} already exists!`,
+                    time: new Date()
+                });
+                return
+            }
+
+            const newUser = new modelUser({
+                username: username,
+                password: password,
+                createdTime: new Date(),
+            });
+        
+            newUser
+                .save()
+                .then((savedUser) => {
+                    res.status(200).json({
+                        message: `Register success with ${savedUser.username}`,
+                        time: new Date()
+                    })
+                    return;
+                })
+                .catch((err) => {
+                    res.status(400).json(err)
+                    return;
+                });
+
+
+        })
+        .catch((err) => {
+            res.status(500).json(err)
+            return;
+        });
+
+};
+
+export { userLogin, userLogout, userRegister }
