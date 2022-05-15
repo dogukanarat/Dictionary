@@ -1,5 +1,4 @@
 import { modelUser } from './DatabaseModels.js'
-import redisClient from './RedisClient.js'
 
 const userLogin = (req, res) => {
     const { username, password } = req.body

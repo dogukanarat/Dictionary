@@ -1,38 +1,63 @@
 import Express from 'express'
 import Mongoose from 'mongoose'
 import Cors from 'cors'
-import Session from 'express-session'
 import CookieParser from 'cookie-parser'
+import { createClient } from 'redis'
 
 import { modelPost } from './DatabaseModels.js'
 import { userLogin, userLogout, userRegister,} from './UserManager.js'
 import { postList, postDelete, postNew} from './PostManager.js'
-import RedisClient from './RedisClient.js'
+
+import session from 'express-session'
+import redisConnect from 'connect-redis'
+
+const listenPort = process.env.PORT || 5000;
 
 const expressApp = Express();
-const listenPort = process.env.PORT || 5000;
+let redisClient = createClient({ legacyMode: true , url:"redis://redis:6379"});
+const redisStore = redisConnect(session);
+
+redisClient.on("error", (error) => {
+    console.error(error);
+});
+
+redisClient.on('connect', () => {
+    console.log('Backend connected to Redis server!');
+});
+
+redisClient.connect().catch((error) => {
+    console.error(error);
+});
 
 expressApp.use(Express.json());
 expressApp.use(Express.urlencoded({ extended: true }));
 expressApp.use(Cors());
 expressApp.use(CookieParser());
-expressApp.use(Session({
+expressApp.use(session({
+    store: new redisStore({ client: redisClient }),
     secret: "secretkey",
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        secure: false,
+        httpOnly: false,
+        maxAge: 1000 * 60 * 10
+    }
 }));
 
-RedisClient.on("error", (error) => {
-    console.error(error);
-});
+expressApp.use( (req, res, next) => {
 
-RedisClient.on('connect', () => {
-    console.log('Backend connected to Redis server!');
-});
+    if (!req.session.views) {
+        req.session.views = 0
+    }
+
+    req.session.views = (req.session.views || 0) + 1
+    next()
+})
 
 expressApp.get('/', function (req, res) {
     const message = {
-        "message": "Hello from backend server",
+        "message": `Hello from backend server. View count: ${req.session.views}`,
         "time": new Date().toLocaleString()
     }
 
@@ -54,6 +79,8 @@ expressApp.listen(listenPort, async () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
+
+    
 
     console.log("Backend connected to MongoDB!");
 });

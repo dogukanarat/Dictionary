@@ -19,8 +19,6 @@ const postNew = (req, res, next) => {
         return;
     }
 
-    console.log(req.session.username)
-
     const newPost = new modelPost({
         title: title,
         content: content,
