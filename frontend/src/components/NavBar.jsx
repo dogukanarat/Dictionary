@@ -5,19 +5,28 @@ import NavBarLogo from './NavBarLogo'
 import NavBarLinks from './NavBarLinks'
 import NavBarSearch from './NavBarSearch'
 
-const NavBarContainer = Styled.nav.attrs({
-    className: 'navbar navbar-expand-md navbar-dark fixed-top bg-dark',
+const NavBarWrapper = Styled.nav.attrs({
+    className: 'navbar navbar-dark fixed-top bg-dark navbar-expand-md',
+})`
+`
+
+const NavBarContainer = Styled.div.attrs({
+    className: 'container-fluid',
 })`
 `
 
 class NavBar extends Component {
     render() {
         return (
-            <NavBarContainer>
-                <NavBarLogo />
-                <NavBarLinks />
-                <NavBarSearch />
-            </NavBarContainer>
+            <header>
+                <NavBarWrapper>
+                    <NavBarContainer>
+                        <NavBarLogo />
+                        <NavBarLinks />
+                    </NavBarContainer>
+                </NavBarWrapper>
+            </header>
+
         )
     }
 }

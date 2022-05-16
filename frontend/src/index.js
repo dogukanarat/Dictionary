@@ -3,34 +3,30 @@ import React from 'react'
 import Styled from 'styled-components'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { NavBar } from './components'
-import { PostList, PostNew } from './pages'
-import 'bootstrap/dist/css/bootstrap.min.css'
+import { PagePostList, PagePostNew, PageLogin, PageRegister  } from './pages'
 
-const BodyContainer = Styled.main.attrs({
-    className: 'container',
-})`
-`
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const Home = () => <h1>Home</h1>
 const NoPage = () => <h1>No Page!</h1>
 
 function Body() {
     return (
-        <BodyContainer>
             <Routes>
                 <Route index element={<Home />} />
-                <Route path="/post/list" element={<PostList />} />
-                <Route path="/post/new" element={<PostNew />} />
-                <Route path="*" element={<Home />} />
+                <Route path="/post/list" element={<PagePostList />} />
+                <Route path="/post/new" element={<PagePostNew />} />
+                <Route path="/login" element={<PageLogin />} />
+                <Route path="/register" element={<PageRegister />} />
+                <Route path="*" element={<NoPage />} />
             </Routes>
-        </BodyContainer>
     )
 }
 export default function App() {
     return (
         <BrowserRouter>
             <NavBar />
-            <Body/>
+            <Body />
         </BrowserRouter>
     )
 }

@@ -3,16 +3,14 @@ import Styled from 'styled-components'
 
 import logo from '../logo.svg'
 
-const Wrapper = Styled.div.attrs({
-    className: 'navbar-brand',
-})``
+// const Wrapper = Styled.div.attrs({
+//     className: 'navbar-brand',
+// })``
 
 class NavBarLogo extends Component {
     render() {
         return (
-            <Wrapper>
-                Simple Dictionary
-            </Wrapper>
+            <a className="navbar-brand" href="#">Simple Dictionary</a>
         )
     }
 }

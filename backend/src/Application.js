@@ -57,7 +57,7 @@ expressApp.use( (req, res, next) => {
 
 expressApp.get('/', function (req, res) {
     const message = {
-        "message": `Hello from backend server. View count: ${req.session.views}`,
+        "message": `Hello from backend server. View count: ${req.session.views}. Session ID: ${req.sessionID}`,
         "time": new Date().toLocaleString()
     }
 
@@ -79,8 +79,6 @@ expressApp.listen(listenPort, async () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
     });
-
     
-
     console.log("Backend connected to MongoDB!");
 });

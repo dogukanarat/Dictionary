@@ -11,7 +11,8 @@ const CardHeader = Styled.div.attrs({
 })`
 `
 
-const Title = Styled.b.attrs({
+const Title = Styled.p.attrs({
+    className: 'h4',
 })`
 `
 

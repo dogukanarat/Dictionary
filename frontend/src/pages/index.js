@@ -1,4 +1,6 @@
-import PostList from './PostList'
-import PostNew from './PostNew'
+import PagePostList from './PostList'
+import PagePostNew from './PostNew'
+import PageLogin from './Login'
+import PageRegister from './Register'
 
-export { PostList, PostNew }
+export { PagePostList, PagePostNew, PageLogin, PageRegister }

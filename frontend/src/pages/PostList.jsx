@@ -22,6 +22,24 @@ const PostListGroup = Styled.div.attrs({
 })`
 `
 
+const BodyMain = Styled.main.attrs({
+    className: 'm-auto',
+})`
+`
+
+const BodyContainer = Styled.section.attrs({
+    className: 'container',
+})`
+width: auto;
+max-width: 1080px;
+padding: 0 15px;
+`
+
+const BodyContainerRow = Styled.section.attrs({
+    className: 'row py-lg-5',
+})`
+`
+
 // class PostUpdate extends Component {
 //     updateUser = event => {
 //         event.preventDefault()
@@ -66,7 +84,7 @@ function PostListGroupItem(props) {
     )
 }
 
-class PostList extends Component {
+class PagePostList extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -80,6 +98,7 @@ class PostList extends Component {
         this.setState({ isLoading: true })
 
         await Api.postList().then(payload => {
+            
             this.setState({
                 posts: payload.data,
                 isLoading: false,
@@ -90,24 +109,29 @@ class PostList extends Component {
     render() {
         const { posts } = this.state
 
-        return (
-            <Wrapper>
-                <PostListGroup>
-                    {posts.map(item => {
-                        return (
-                            <PostListGroupItem
-                                title={item.title}
-                                content={item.content}
-                                timeDifference="3 day ago"
-                                author="testAuthor"
-                                link={"post?id=" + item._id}
-                            />
-                        )
-                        })
-                    }
+        console.log("HELLOOOOOOOOOO")
 
-                </PostListGroup>
-                {/* <nav aria-label="Page navigation example">
+        return (
+            <BodyMain>
+                <BodyContainer>
+                    <BodyContainerRow>
+                        <Wrapper>
+                            <PostListGroup>
+                                {posts.map(item => {
+                                    return (
+                                        <PostListGroupItem
+                                            title={item.title}
+                                            content={item.content}
+                                            timeDifference="3 day ago"
+                                            author="testAuthor"
+                                            link={"post?id=" + item._id}
+                                        />
+                                    )
+                                })
+                                }
+
+                            </PostListGroup>
+                            {/* <nav aria-label="Page navigation example">
                     <ul class="pagination justify-content-center mr-6">
                         <li class="page-item">
                             <a class="page-link" href="#" tabindex="-1">{"<"}</a>
@@ -120,9 +144,13 @@ class PostList extends Component {
                         </li>
                     </ul>
                 </nav> */}
-            </Wrapper>
+                asdasdas
+                        </Wrapper>
+                    </BodyContainerRow>
+                </BodyContainer>
+            </BodyMain>
         )
     }
 }
 
-export default PostList
+export default PagePostList

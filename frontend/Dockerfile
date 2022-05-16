@@ -5,9 +5,9 @@ WORKDIR /usr/src/app
 COPY ./yarn.lock ./
 COPY ./package.json ./
 
-RUN yarn install
-
 COPY . .
+
+RUN yarn install
 
 EXPOSE 3000
 

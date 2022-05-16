@@ -18,27 +18,17 @@ const Item = Styled.div.attrs({
 class NavBarLinks extends Component {
     render() {
         return (
-            <React.Fragment>
-                <Wrapper>
-                    <List>
-                        <Item>
-                            <Link to="/post/list" className="nav-link">
-                                Posts
-                            </Link>
-                        </Item>
-                        <Item>
-                            <Link to="/post/new" className="nav-link">
-                                New
-                            </Link>
-                        </Item>
-                        <Item>
-                            <Link to="/post/list" className="nav-link">
-                                Login
-                            </Link>
-                        </Item>
-                    </List>
-                </Wrapper>
-            </React.Fragment>
+                <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                    <a className="nav-link active" aria-current="page" href="/post/list">Home</a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="/post/new">New</a>
+                </li>
+                <li className="nav-item">
+                    <a className="nav-link" href="/login">Login</a>
+                </li>
+            </ul>
         )
     }
 }

@@ -1,0 +1,110 @@
+import React, { Component } from 'react'
+import api from '../api'
+
+import Styled from 'styled-components'
+
+const BodyCustomStyle = Styled.div.attrs({
+})`
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: #f5f5f5;
+}
+
+.form-signin {
+  max-width: 330px;
+  padding: 15px;
+}
+
+.form-signin .form-floating:focus-within {
+  z-index: 2;
+}
+
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+`
+
+const BodyMain = Styled.main.attrs({
+    className: 'form-signin w-100 m-auto',
+})`
+`
+
+const BodyContainer = Styled.section.attrs({
+    className: 'container',
+})`
+`
+
+const BodyContainerRow = Styled.section.attrs({
+    className: 'row py-lg-5',
+})`
+`
+
+class PageLogin extends Component {
+    constructor(props) {
+        super(props)
+
+        this.state = {
+        }
+
+    }
+
+    render() {
+        return (
+            <BodyCustomStyle>
+                <BodyMain>
+                    <BodyContainer>
+                        <BodyContainerRow>
+                            <form>
+                                <h1 className="h3 mb-3 fw-normal">Login</h1>
+
+                                <div className="form-floating">
+                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <label htmlFor="floatingInput">Email address</label>
+                                </div>
+                                <div className="form-floating">
+                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" />
+                                    <label htmlFor="floatingPassword">Password</label>
+                                </div>
+
+                                <div className="checkbox mb-3">
+                                    <label>
+                                        <input type="checkbox" value="remember-me" /> Remember me
+                                    </label>
+                                </div>
+                                
+                                <div class="d-grid gap-2">
+                                    <a href="/login" className="w-100 btn btn-lg btn-primary" role="button">Login</a>
+                                    <a href="/register" className="w-100 btn btn-lg btn-dark" role="button">Register</a>
+                                </div>
+
+                                <p className="mt-5 mb-3 text-muted">© 2017–2022</p>
+
+                            </form>
+
+                        </BodyContainerRow>
+                    </BodyContainer>
+                </BodyMain>
+            </BodyCustomStyle>
+        )
+    }
+}
+
+export default PageLogin;
+

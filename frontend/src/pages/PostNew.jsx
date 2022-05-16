@@ -2,42 +2,60 @@ import React, { Component } from 'react'
 import api from '../api'
 
 import { Card, InPageNotification } from '../components'
-import styled from 'styled-components'
+import Styled from 'styled-components'
 
-const Wrapper = styled.div.attrs({
+const Wrapper = Styled.div.attrs({
     className: 'jumbotron'
 })`
 `
 
-const Label = styled.label`
+const Label = Styled.label`
     margin: 5px;
 `
 
-const InputText = styled.input.attrs({
+const InputText = Styled.input.attrs({
     className: 'form-control',
 })`
     margin: 5px;
 `
 
-const InputTextWide = styled.textarea.attrs({
+const InputTextWide = Styled.textarea.attrs({
     className: 'form-control',
 })`
     margin: 5px;
 `
 
-const Button = styled.button.attrs({
+const Button = Styled.button.attrs({
     className: `btn btn-primary`,
 })`
     margin: 15px 15px 15px 5px;
 `
 
-const CancelButton = styled.a.attrs({
+const CancelButton = Styled.a.attrs({
     className: `btn btn-danger`,
 })`
     margin: 15px 15px 15px 5px;
 `
 
-const PostNewFormWrapper = styled.div.attrs({
+const PostNewFormWrapper = Styled.div.attrs({
+})`
+`
+
+const BodyMain = Styled.main.attrs({
+    className: 'm-auto',
+})`
+`
+
+const BodyContainer = Styled.section.attrs({
+    className: 'container',
+})`
+width: auto;
+max-width: 680px;
+padding: 0 15px;
+`
+
+const BodyContainerRow = Styled.section.attrs({
+    className: 'row py-lg-5',
 })`
 `
 
@@ -65,7 +83,7 @@ function PostNewForm(props) {
     )
 }
 
-class PostNew extends Component {
+class PagePostNew extends Component {
     constructor(props) {
         super(props)
 
@@ -117,22 +135,28 @@ class PostNew extends Component {
     render() {
         const { title, content, isSuccessful } = this.state
         return (
-            <Wrapper>
-                {isSuccessful &&
-                    <InPageNotification variant="success">New post is added successfully!</InPageNotification>
-                }
-                <Card header="New Post">
-                    <PostNewForm
-                        title={title}
-                        content={content}
-                        onTitleUpdated={this.handleChangeTitle}
-                        onContentUpdated={this.handleChangeContent}
-                        onNewPostCreated={this.handleNewPost}
-                    />
-                </Card>
-            </Wrapper>
+            <BodyMain>
+                <BodyContainer>
+                    <BodyContainerRow>
+                        <Wrapper>
+                            {isSuccessful &&
+                                <InPageNotification variant="success">New post is added successfully!</InPageNotification>
+                            }
+                            <Card header="New Post">
+                                <PostNewForm
+                                    title={title}
+                                    content={content}
+                                    onTitleUpdated={this.handleChangeTitle}
+                                    onContentUpdated={this.handleChangeContent}
+                                    onNewPostCreated={this.handleNewPost}
+                                />
+                            </Card>
+                        </Wrapper>
+                    </BodyContainerRow>
+                </BodyContainer>
+            </BodyMain>
         )
     }
 }
 
-export default PostNew
+export default PagePostNew
