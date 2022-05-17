@@ -98,7 +98,7 @@ class PagePostList extends Component {
         this.setState({ isLoading: true })
 
         await Api.postList().then(payload => {
-            
+
             this.setState({
                 posts: payload.data,
                 isLoading: false,
@@ -108,8 +108,6 @@ class PagePostList extends Component {
 
     render() {
         const { posts } = this.state
-
-        console.log("HELLOOOOOOOOOO")
 
         return (
             <BodyMain>
@@ -131,20 +129,21 @@ class PagePostList extends Component {
                                 }
 
                             </PostListGroup>
-                            {/* <nav aria-label="Page navigation example">
-                    <ul class="pagination justify-content-center mr-6">
-                        <li class="page-item">
-                            <a class="page-link" href="#" tabindex="-1">{"<"}</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">{">"}</a>
-                        </li>
-                    </ul>
-                </nav> */}
-                asdasdas
+                            <br />
+                            <nav aria-label="Page navigation example">
+                                <ul class="pagination justify-content-center mr-6">
+                                    <li class="page-item">
+                                        <a class="page-link" href="#" tabindex="-1">{"<"}</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="#">{">"}</a>
+                                    </li>
+                                </ul>
+                            </nav>
+
                         </Wrapper>
                     </BodyContainerRow>
                 </BodyContainer>

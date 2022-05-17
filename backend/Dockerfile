@@ -7,6 +7,8 @@ COPY ./package.json ./
 
 COPY . .
 
+RUN apt update
+RUN apt install make gcc g++ python -y
 RUN yarn install
 
 EXPOSE 5000
