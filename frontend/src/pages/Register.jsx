@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-// import api from '../api'
-
+import { Component } from 'react'
+import api from '../api'
 import Styled from 'styled-components'
+
+import { InPageNotification } from '../components'
 
 const RegisterCustomStyle = Styled.div.attrs({
 })`
@@ -28,13 +29,13 @@ body {
   z-index: 2;
 }
 
-.form-signin input[type="top"] {
+.form-signin input[attribute="top"]  {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="middle"] {
+.form-signin input[attribute="middle"]  {
     margin-bottom: -1px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -42,7 +43,7 @@ body {
     border-bottom-left-radius: 0;
   }
 
-.form-signin input[type="bottom"] {
+.form-signin input[attribute="bottom"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -57,7 +58,9 @@ class PageRegister extends Component {
             email: '',
             username: '',
             password: '',
-            error: ''
+            isExist: false,
+            isInvalidInput: false,
+            isSuccess: false
         }
 
         this.handleChange = this.handleChange.bind(this);
@@ -69,22 +72,78 @@ class PageRegister extends Component {
     };
 
     handleRegister = () => {
-        const { _username, _password } = this.state
+        const { email, username, password } = this.state
+
+        const payload =
+        {
+            "email": email,
+            "username": username,
+            "password": password
+        }
+
+        try {
+            api.register(payload)
+                .then((_res) => {
+
+                    this.setState({
+                        isSuccess: true
+                    })
+
+                })
+                .catch((error) => {
+
+                    if (error.response.status === 409) {
+                        this.setState({ isExist: true })
+                    }
+
+                    if (error.response.status === 400) {
+                        this.setState({ isInvalidInput: true })
+                    }
+
+                    if (
+                        error.response &&
+                        error.response.status >= 400 &&
+                        error.response.status <= 500
+                    ) {
+
+                    }
+                })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     render() {
-        const { email, username, password, _error } = this.state
+        const { email, username, password, isExist, isInvalidInput, isSuccess } = this.state
         return (
             <RegisterCustomStyle>
                 <main className="form-signin w-100 m-auto">
                     <section className="container">
+                        {isExist &&
+                            <InPageNotification variant="danger">
+                                Email address is already registered!
+                            </InPageNotification>
+                        }
+
+                        {isInvalidInput &&
+                            <InPageNotification variant="danger">
+                                Invalid input!
+                            </InPageNotification>
+                        }
+
+                        {isSuccess &&
+                            <InPageNotification variant="success">
+                                Successfully registered!
+                            </InPageNotification>
+                        }
                         <section className="row py-lg-5">
                             <form>
                                 <h1 className="h3 mb-3 fw-normal">Register</h1>
 
                                 <div className="form-floating">
                                     <input
-                                        type="top"
+                                        attribute="top"
+                                        type="text"
                                         className="form-control"
                                         id="floatingInput"
                                         placeholder="name@example.com"
@@ -95,7 +154,8 @@ class PageRegister extends Component {
                                 </div>
                                 <div className="form-floating">
                                     <input
-                                        type="middle"
+                                        attribute="middle"
+                                        type="text"
                                         className="form-control"
                                         id="floatingInput"
                                         placeholder="ExampleUser"
@@ -106,7 +166,8 @@ class PageRegister extends Component {
                                 </div>
                                 <div className="form-floating">
                                     <input
-                                        type="bottom"
+                                        attribute="bottom"
+                                        type="password"
                                         className="form-control"
                                         id="floatingPassword"
                                         placeholder="Password"
@@ -117,7 +178,12 @@ class PageRegister extends Component {
                                 </div>
 
                                 <div className="d-grid gap-2">
-                                    <a href="/register" className="w-100 btn btn-lg btn-primary" role="button">Register</a>
+                                    <button
+                                        className="w-100 btn btn-lg btn-primary"
+                                        type="button"
+                                        onClick={() => { this.handleRegister() }}>
+                                        Register
+                                    </button>
                                 </div>
 
                             </form>

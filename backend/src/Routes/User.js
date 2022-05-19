@@ -15,7 +15,7 @@ router.post("/register", async (req, res, next) => {
         })
 
         if (error) {
-            return res.status(200).json({
+            return res.status(400).json({
                 message: error.details[0].message,
                 time: new Date()
             })
@@ -24,7 +24,7 @@ router.post("/register", async (req, res, next) => {
         const user = await userModel.findOne({ email: email })
 
         if (user) {
-            return res.status(200).json({
+            return res.status(409).json({
                 message: `Email ${email} is already registered!`,
                 time: new Date()
             })
@@ -48,11 +48,14 @@ router.post("/register", async (req, res, next) => {
                 })
             })
             .catch((error) => {
-                return res.status(400).json(error)
+                return res.status(400).json({
+                    message: `Register failed for ${email}`,
+                    time: new Date()
+                })
             });
     }
     catch (error) {
-        return res.status(400).json({
+        return res.status(500).json({
             message: "Internal error: " + error,
             time: new Date()
         })

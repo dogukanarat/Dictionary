@@ -29,13 +29,13 @@ body {
   z-index: 2;
 }
 
-.form-signin input[type="top"] {
+.form-signin input[attribute="top"] {
     margin-bottom: -1px;
     border-bottom-right-radius: 0;
     border-bottom-left-radius: 0;
   }
   
-  .form-signin input[type="middle"] {
+  .form-signin input[attribute="middle"] {
       margin-bottom: -1px;
       border-top-left-radius: 0;
       border-top-right-radius: 0;
@@ -43,7 +43,7 @@ body {
       border-bottom-left-radius: 0;
     }
   
-  .form-signin input[type="bottom"] {
+  .form-signin input[attribute="bottom"] {
     margin-bottom: 10px;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -94,8 +94,6 @@ class PageLogin extends Component {
             "password": password
         }
 
-        console.log(payload)
-
         try {
             await api.auth(payload)
                 .then((res) => {
@@ -145,24 +143,26 @@ class PageLogin extends Component {
 
                                 <div className="form-floating">
                                     <input
-                                        type="top"
+                                        attribute="top"
+                                        type="text"
                                         className="form-control"
                                         id="floatingInput"
                                         placeholder="username"
                                         onChange={(text) => { this.handleChange(text) }}
                                         value={username}
-                                        name="username"/>
+                                        name="username" />
                                     <label htmlFor="floatingInput">Username</label>
                                 </div>
                                 <div className="form-floating">
                                     <input
-                                        type="bottom"
+                                        attribute="bottom"
+                                        type="password"
                                         className="form-control"
                                         id="floatingPassword"
                                         placeholder="Password"
                                         onChange={(text) => { this.handleChange(text) }}
                                         value={password}
-                                        name="password"/>
+                                        name="password" />
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
 

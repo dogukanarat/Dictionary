@@ -63,10 +63,6 @@ router.post("/new", async (req, res, next) => {
                         });
                 }
             })
-
-
-
-
     }
     catch (error) {
         return res.status(500).json({
@@ -99,9 +95,11 @@ router.get("/list", async (req, res, next) => {
     postModel.find({})
         .skip(start)
         .limit(offset)
-        .then((posts) => res.status(200).json(posts))
-        .catch((err) => {
-            return res.status(500).json(err);
+        .then((payload) => { 
+            res.status(200).json(payload)
+        })
+        .catch((error) => {
+            return res.status(500).json(error);
         });
 });
 

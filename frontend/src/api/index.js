@@ -19,24 +19,29 @@ const updateToken = async () => {
     return token
 }
 
-export const postNew = (payload) => {
+export const postNew = async (payload) => {
     updateToken()
     return axiosInstance.post(`/post/new`, payload)
 }
 
-export const postList = () => {
+export const postList = async () => {
     updateToken()
     return axiosInstance.get(`/post/list`)
 }
 
-export const auth = (payload) => {
+export const auth = async (payload) => {
     return axiosInstance.post(`/auth`, payload)
+}
+
+export const register = async (payload) => {
+    return axiosInstance.post(`/user/register`, payload)
 }
 
 const apis = {
     postNew: postNew,
     postList: postList,
     auth: auth,
+    register: register
 }
 
 export default apis
