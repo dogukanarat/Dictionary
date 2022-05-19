@@ -6,6 +6,7 @@ const InPageNotification = (props) => {
     const [show, setShow] = React.useState(true)
 
     React.useEffect(() => {
+
         const timeId = setTimeout(() => {
             setShow(false)
         }, 3000)
@@ -13,7 +14,7 @@ const InPageNotification = (props) => {
         return () => {
             clearTimeout(timeId)
         }
-    }, []);
+    }, [props]);
 
     if (!show) {
         return null;

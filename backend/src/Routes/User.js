@@ -8,15 +8,19 @@ router.post("/register", async (req, res, next) => {
     try {
         const { email, username, password } = req.body
 
-        const { error } = userModelValidate({ email: email, username: username, password: password })
-        
-        if(error) {
+        const { error } = userModelValidate({
+            email: email,
+            username: username,
+            password: password
+        })
+
+        if (error) {
             return res.status(200).json({
                 message: error.details[0].message,
                 time: new Date()
             })
         }
-        
+
         const user = await userModel.findOne({ email: email })
 
         if (user) {

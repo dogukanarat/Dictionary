@@ -15,7 +15,7 @@ const postModelValidate = (payload) => {
     const schema = joi.object({
         title: joi.string().required().label("title"),
         content: joi.string().required().label("content"),
-        author: passwordComplexity().required().label("author"),
+        author: joi.string().required().label("author"),
     });
     return schema.validate(payload)
 }

@@ -4,11 +4,11 @@
 
 export default function Card(props) {
     return (
-        <div class="card">
+        <div className="card">
             {props.header &&
-                <h5 class="card-header">{props.header}</h5>
+                <h5 className="card-header">{props.header}</h5>
             }
-            <div class="card-body">
+            <div className="card-body">
                 {props.children}
             </div>
         </div>

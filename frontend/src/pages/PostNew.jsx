@@ -7,7 +7,7 @@ import { Card, InPageNotification } from '../components'
 function PostNewForm(props) {
     return (
         <div>
-            <div class="mb-3">
+            <div className="mb-3">
                 <label className="form-label">Title</label>
                 <textarea
                     className="form-control"
@@ -16,7 +16,7 @@ function PostNewForm(props) {
                     onChange={(event) => { props.onTitleUpdated(event) }}
                 />
             </div>
-            <div class="mb-3">
+            <div className="mb-3">
                 <label className="form-label">Content:</label>
                 <textarea
                     className="form-control"
@@ -25,7 +25,7 @@ function PostNewForm(props) {
                     onChange={(event) => { props.onContentUpdated(event) }}
                 />
             </div>
-            <div class="row g-3">
+            <div className="row g-3">
                 <div className="col-auto">
                     <button
                         className="btn btn-primary"
@@ -61,19 +61,31 @@ class PagePostNew extends Component {
         this.handleNewPost = this.handleNewPost.bind(this);
     }
 
+    componentDidUpdate() {
+        const token = window.localStorage.getItem("token");
+
+        if(token == null) {
+            window.location.href = '/login'
+        }
+    }
+
     handleChangeTitle = async event => {
         const title = event.target.value
-        this.setState({ title })
-        this.setState({ isSuccessful: false })
+        this.setState({ 
+            title: title,
+            isSuccessful: false 
+        })
     }
 
     handleChangeContent = async event => {
         const content = event.target.value
-        this.setState({ content })
-        this.setState({ isSuccessful: false })
+        this.setState({
+            content: content,
+            isSuccessful: false
+        })
     }
 
-    handleNewPost = async (event) => {
+    handleNewPost = async (_event) => {
         const { title, content } = this.state
 
         const payload =
@@ -82,17 +94,32 @@ class PagePostNew extends Component {
             "content": content
         }
 
-        console.log(payload)
+        try {
+            await api.postNew(payload).then((_res) => {
+                this.setState({
+                    title: '',
+                    content: '',
+                    isSuccessful: true
+                })
+            }).catch((error) => {
 
-        await api.postNew(payload).then(res => {
-            this.setState({
-                title: '',
-                content: '',
-                isSuccessful: true,
-            })
+                if (error.response.status === 403) {
+                    window.location.href = '/logoutImmediately'
+                }
 
-            console.log(res)
-        })
+                console.log(error)
+                    if (
+                        error.response &&
+                        error.response.status >= 400 &&
+                        error.response.status <= 500
+                    ) {
+                    }
+                })
+
+        } catch (error) {
+            console.log(error)
+        }
+        
     }
 
     render() {

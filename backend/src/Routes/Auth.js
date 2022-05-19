@@ -11,7 +11,7 @@ router.post("/", async (req, res, next) => {
         const {error} = authValidate(req.body)
 
         if(error) {
-            return res.status(200).json({
+            return res.status(400).json({
                 message: error.details[0].message,
                 time: new Date()
             })
@@ -20,8 +20,8 @@ router.post("/", async (req, res, next) => {
         const user = await userModel.findOne({username: req.body.username})
 
         if(!user) {
-            return res.status(200).json({
-                message: `Username ${req.body.username} is not registered!`,
+            return res.status(401).json({
+                message: `Invalid Email or Password`,
                 time: new Date()
             })
         }
@@ -29,8 +29,8 @@ router.post("/", async (req, res, next) => {
         const isMatch = crypto.SHA256(req.body.password) == user.password
 
         if(!isMatch) {
-            return res.status(200).json({
-                message: `Username or password is wrong!`,
+            return res.status(401).json({
+                message: `Invalid Email or Password`,
                 time: new Date()
             })
         }
@@ -38,7 +38,7 @@ router.post("/", async (req, res, next) => {
         const token = await user.generateAuthToken(user);
 
         try {
-        return res.status(400).json({
+        return res.status(200).json({
             data: token,
             message: "Authentication success!",
             time: new Date()

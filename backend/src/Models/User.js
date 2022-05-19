@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.generateAuthToken = async (user) => {
-    return jwt.sign({ _id: user._id }, process.env.JWT_KEY, {expiresIn: "1h"});
+    return jwt.sign({ _id: user._id, username: user.username }, process.env.JWT_KEY, {expiresIn: "1h"});
 }
 
 const userModel = mongoose.model("User", userSchema);

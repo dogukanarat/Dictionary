@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import Api from '../api'
+import { Component } from 'react'
+import api from '../api'
 // import Styled from 'styled-components'
 
 class PagePostList extends Component {
@@ -15,7 +15,7 @@ class PagePostList extends Component {
     componentDidMount = async () => {
         this.setState({ isLoading: true })
 
-        await Api.postList().then(payload => {
+        await api.postList().then(payload => {
 
             this.setState({
                 posts: payload.data,
@@ -33,30 +33,31 @@ class PagePostList extends Component {
                     <h1 className="mt-5"> </h1>
                     {posts.map(item => {
                         const timeDifference = "3 day ago"
-                        const author = "admin"
                         return (
-                            <a href={"post?id=" + item._id} class="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">{item.title}</h5>
+                            <a 
+                            href={"post?id=" + item._id}
+                            className="list-group-item list-group-item-action flex-column align-items-start">
+                                <div className="d-flex w-100 justify-content-between">
+                                    <h5 className="mb-1">{item.title}</h5>
                                     <small>{timeDifference}</small>
                                 </div>
-                                <p class="mb-1">{item.content}</p>
-                                <small>{author}</small>
+                                <p className="mb-1">{item.content}</p>
+                                <small>{item.author}</small>
                             </a>
                         )
                     })
                     }
                     <br />
                     <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center mr-6">
-                            <li class="page-item">
-                                <a class="page-link" href="/post/0" tabindex="-1">{"<"}</a>
+                        <ul className="pagination justify-content-center mr-6">
+                            <li className="page-item">
+                                <a className="page-link" href="/post/0" tabIndex="-1">{"<"}</a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="/post/1">1</a></li>
-                            <li class="page-item"><a class="page-link" href="/post/2">2</a></li>
-                            <li class="page-item"><a class="page-link" href="/post/3">3</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="/post/4">{">"}</a>
+                            <li className="page-item"><a className="page-link" href="/post/1">1</a></li>
+                            <li className="page-item"><a className="page-link" href="/post/2">2</a></li>
+                            <li className="page-item"><a className="page-link" href="/post/3">3</a></li>
+                            <li className="page-item">
+                                <a className="page-link" href="/post/4">{">"}</a>
                             </li>
                         </ul>
                     </nav>
