@@ -29,17 +29,25 @@ body {
   z-index: 2;
 }
 
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
+.form-signin input[type="top"] {
+    margin-bottom: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  
+  .form-signin input[type="middle"] {
+      margin-bottom: -1px;
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  
+  .form-signin input[type="bottom"] {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
 `
 
 class PageLogin extends Component {
@@ -48,7 +56,7 @@ class PageLogin extends Component {
 
         const token = window.localStorage.getItem("token");
 
-        if(token != null) {
+        if (token != null) {
             window.location.href = '/post/list'
         }
 
@@ -59,8 +67,7 @@ class PageLogin extends Component {
             incorrectInput: false,
         }
 
-        this.handleChangeUsername = this.handleChangeUsername.bind(this);
-        this.handleChangePassword = this.handleChangePassword.bind(this);
+        this.handleChange = this.handleChange.bind(this);
         this.handleLogin = this.handleLogin.bind(this);
     }
 
@@ -69,20 +76,14 @@ class PageLogin extends Component {
 
         console.log("componentDidUpdate; Token: ", token)
 
-        if(token != null) {
+        if (token != null) {
             window.location.href = '/post/list'
         }
     }
 
-    handleChangeUsername = async (event) => {
-        const { value } = event.target;
-        this.setState({ username: value })
-    }
-
-    handleChangePassword = async (event) => {
-        const { value } = event.target;
-        this.setState({ password: value })
-    }
+    handleChange = ({ currentTarget: input }) => {
+        this.setState({ [input.name]: input.value });
+    };
 
     handleLogin = async (_event) => {
         const { username, password } = this.state;
@@ -144,22 +145,24 @@ class PageLogin extends Component {
 
                                 <div className="form-floating">
                                     <input
-                                        type="text"
+                                        type="top"
                                         className="form-control"
                                         id="floatingInput"
                                         placeholder="username"
-                                        onChange={(text) => { this.handleChangeUsername(text) }}
-                                        value={username} />
+                                        onChange={(text) => { this.handleChange(text) }}
+                                        value={username}
+                                        name="username"/>
                                     <label htmlFor="floatingInput">Username</label>
                                 </div>
                                 <div className="form-floating">
                                     <input
-                                        type="password"
+                                        type="bottom"
                                         className="form-control"
                                         id="floatingPassword"
                                         placeholder="Password"
-                                        onChange={(text) => { this.handleChangePassword(text) }}
-                                        value={password} />
+                                        onChange={(text) => { this.handleChange(text) }}
+                                        value={password}
+                                        name="password"/>
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
 
@@ -176,14 +179,7 @@ class PageLogin extends Component {
                                         type="button">
                                         Login
                                     </button>
-                                    <button
-                                        className="w-100 btn btn-lg btn-dark"
-                                        type="button">
-                                        Register
-                                    </button>
                                 </div>
-
-                                <p className="mt-5 mb-3 text-muted">© 2017–2022</p>
 
                             </form>
 

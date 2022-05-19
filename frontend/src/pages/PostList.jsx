@@ -34,14 +34,15 @@ class PagePostList extends Component {
                         const timeDifference = "3 day ago"
                         return (
                             <a
+                                key={item._id}
                                 href={"post?id=" + item._id}
-                                className="list-group-item list-group-item-action flex-column align-items-start">
-                                <div class="d-flex w-100 justify-content-between">
-                                    <h5 class="mb-1">{item.title}</h5>
+                                className="list-group-item list-group-item-action flex-column align-items-start p-3">
+                                <div className="d-flex w-100 justify-content-between">
+                                    <h5 className="mb-1">{item.title}</h5>
                                     <small>{timeDifference}</small>
                                 </div>
-                                
-                                <small class="text-muted">{item.author}</small>
+
+                                <small className="text-muted">{item.author}</small>
                             </a>
                         )
                     })

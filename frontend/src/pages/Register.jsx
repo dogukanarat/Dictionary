@@ -28,13 +28,21 @@ body {
   z-index: 2;
 }
 
-.form-signin input[type="email"] {
+.form-signin input[type="top"] {
   margin-bottom: -1px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
-.form-signin input[type="password"] {
+.form-signin input[type="middle"] {
+    margin-bottom: -1px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+
+.form-signin input[type="bottom"] {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
@@ -46,11 +54,26 @@ class PageRegister extends Component {
         super(props)
 
         this.state = {
+            email: '',
+            username: '',
+            password: '',
+            error: ''
         }
 
+        this.handleChange = this.handleChange.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
+    }
+
+    handleChange = ({ currentTarget: input }) => {
+        this.setState({ [input.name]: input.value });
+    };
+
+    handleRegister = () => {
+        const { _username, _password } = this.state
     }
 
     render() {
+        const { email, username, password, _error } = this.state
         return (
             <RegisterCustomStyle>
                 <main className="form-signin w-100 m-auto">
@@ -60,19 +83,42 @@ class PageRegister extends Component {
                                 <h1 className="h3 mb-3 fw-normal">Register</h1>
 
                                 <div className="form-floating">
-                                    <input type="email" className="form-control" id="floatingInput" placeholder="name@example.com" />
+                                    <input
+                                        type="top"
+                                        className="form-control"
+                                        id="floatingInput"
+                                        placeholder="name@example.com"
+                                        onChange={(text) => { this.handleChange(text) }}
+                                        value={email}
+                                        name="email" />
                                     <label htmlFor="floatingInput">Email address</label>
                                 </div>
                                 <div className="form-floating">
-                                    <input type="password" className="form-control" id="floatingPassword" placeholder="Password" />
+                                    <input
+                                        type="middle"
+                                        className="form-control"
+                                        id="floatingInput"
+                                        placeholder="ExampleUser"
+                                        onChange={(text) => { this.handleChange(text) }}
+                                        value={username}
+                                        name="username" />
+                                    <label htmlFor="floatingInput">Username</label>
+                                </div>
+                                <div className="form-floating">
+                                    <input
+                                        type="bottom"
+                                        className="form-control"
+                                        id="floatingPassword"
+                                        placeholder="Password"
+                                        onChange={(text) => { this.handleChange(text) }}
+                                        value={password}
+                                        name="password" />
                                     <label htmlFor="floatingPassword">Password</label>
                                 </div>
 
-                                <div class="d-grid gap-2">
+                                <div className="d-grid gap-2">
                                     <a href="/register" className="w-100 btn btn-lg btn-primary" role="button">Register</a>
-                                    <a href="/login" className="w-100 btn btn-lg btn-dark" role="button">Login</a>
                                 </div>
-                                <p className="mt-5 mb-3 text-muted">© 2017–2022</p>
 
                             </form>
 

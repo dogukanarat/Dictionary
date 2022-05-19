@@ -76,9 +76,6 @@ class PagePostNew extends Component {
         }
     }
     
-
-    
-
     handleChangeTitle = async event => {
         const title = event.target.value
         this.setState({
