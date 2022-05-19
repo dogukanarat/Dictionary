@@ -1,39 +1,16 @@
-import React, { Component } from 'react'
-import Styled from 'styled-components'
+// import React, { Component } from 'react'
+// import Styled from 'styled-components'
 
-const CardWrapper = Styled.div.attrs({
-    className: 'card',
-})`
-`
-
-const CardHeader = Styled.div.attrs({
-    className: 'card-header',
-})`
-`
-
-const Title = Styled.p.attrs({
-    className: 'h4',
-})`
-`
-
-const CardBody = Styled.div.attrs({
-    className: 'card-body',
-})`
-`
 
 export default function Card(props) {
     return (
-        <CardWrapper>
+        <div class="card">
             {props.header &&
-                <CardHeader>
-                    <Title>
-                    {props.header}
-                    </Title>
-                </CardHeader>
+                <h5 class="card-header">{props.header}</h5>
             }
-            <CardBody>
+            <div class="card-body">
                 {props.children}
-            </CardBody>
-        </CardWrapper>
+            </div>
+        </div>
     )
 }

@@ -1,39 +1,13 @@
 import React, { Component } from 'react'
-import Styled from 'styled-components'
-
-const Wrapper = Styled.a.attrs({
-    className: '',
-})`
-`
-
-const Form = Styled.form.attrs({
-    className: 'form-inline my-2 my-lg-0',
-})`
-`
-
-const Input = Styled.input.attrs({
-    className: 'form-control mr-sm-2',
-    type: 'search',
-    placeholder: 'Search',
-    ariaLabel: 'Search',
-})`
-`
-
-const Button = Styled.button.attrs({
-    className: 'btn btn-outline-success my-2 my-sm-0',
-    type: 'submit',
-})`
-`
+// import Styled from 'styled-components'
 
 class NavBarSearch extends Component {
     render() {
         return (
-            <Wrapper>
-                <Form>
-                    <Input />
-                    <Button>Search</Button>
-                </Form>
-            </Wrapper>
+            <form className="d-flex" role="search">
+                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+                <button className="btn btn-outline-success" type="submit">Search</button>
+            </form>
         )
     }
 }

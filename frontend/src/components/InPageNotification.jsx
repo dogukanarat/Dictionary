@@ -1,10 +1,5 @@
-import React, { Component } from 'react'
-import Styled from 'styled-components'
-
-const InPageNotificationWrapper = Styled.div.attrs({
-    className: 'alert',
-})`
-`
+import React from 'react'
+// import Styled from 'styled-components'
 
 const InPageNotification = (props) => {
 
@@ -25,9 +20,9 @@ const InPageNotification = (props) => {
     }
 
     return (
-        <InPageNotificationWrapper className={` alert-${props.variant}`}>
+        <div className={`alert alert-${props.variant}`}>
             {props.children}
-        </InPageNotificationWrapper>
+        </div>
     )
 }
 

@@ -3,7 +3,7 @@ import api from '../api'
 
 import Styled from 'styled-components'
 
-const BodyCustomStyle = Styled.div.attrs({
+const LoginCustomStyle = Styled.div.attrs({
 })`
 
 html,
@@ -41,21 +41,6 @@ body {
 }
 `
 
-const BodyMain = Styled.main.attrs({
-    className: 'form-signin w-100 m-auto',
-})`
-`
-
-const BodyContainer = Styled.section.attrs({
-    className: 'container',
-})`
-`
-
-const BodyContainerRow = Styled.section.attrs({
-    className: 'row py-lg-5',
-})`
-`
-
 class PageLogin extends Component {
     constructor(props) {
         super(props)
@@ -67,10 +52,10 @@ class PageLogin extends Component {
 
     render() {
         return (
-            <BodyCustomStyle>
-                <BodyMain>
-                    <BodyContainer>
-                        <BodyContainerRow>
+            <LoginCustomStyle>
+                <main className="form-signin w-100 m-auto">
+                    <section className="container">
+                        <section className="row py-lg-5">
                             <form>
                                 <h1 className="h3 mb-3 fw-normal">Login</h1>
 
@@ -88,7 +73,7 @@ class PageLogin extends Component {
                                         <input type="checkbox" value="remember-me" /> Remember me
                                     </label>
                                 </div>
-                                
+
                                 <div class="d-grid gap-2">
                                     <a href="/login" className="w-100 btn btn-lg btn-primary" role="button">Login</a>
                                     <a href="/register" className="w-100 btn btn-lg btn-dark" role="button">Register</a>
@@ -98,10 +83,10 @@ class PageLogin extends Component {
 
                             </form>
 
-                        </BodyContainerRow>
-                    </BodyContainer>
-                </BodyMain>
-            </BodyCustomStyle>
+                        </section>
+                    </section>
+                </main>
+            </LoginCustomStyle>
         )
     }
 }

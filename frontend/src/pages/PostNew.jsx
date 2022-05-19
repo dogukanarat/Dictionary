@@ -1,85 +1,48 @@
 import React, { Component } from 'react'
 import api from '../api'
+// import Styled from 'styled-components'
 
 import { Card, InPageNotification } from '../components'
-import Styled from 'styled-components'
-
-const Wrapper = Styled.div.attrs({
-    className: 'jumbotron'
-})`
-`
-
-const Label = Styled.label`
-    margin: 5px;
-`
-
-const InputText = Styled.input.attrs({
-    className: 'form-control',
-})`
-    margin: 5px;
-`
-
-const InputTextWide = Styled.textarea.attrs({
-    className: 'form-control',
-})`
-    margin: 5px;
-`
-
-const Button = Styled.button.attrs({
-    className: `btn btn-primary`,
-})`
-    margin: 15px 15px 15px 5px;
-`
-
-const CancelButton = Styled.a.attrs({
-    className: `btn btn-danger`,
-})`
-    margin: 15px 15px 15px 5px;
-`
-
-const PostNewFormWrapper = Styled.div.attrs({
-})`
-`
-
-const BodyMain = Styled.main.attrs({
-    className: 'm-auto',
-})`
-`
-
-const BodyContainer = Styled.section.attrs({
-    className: 'container',
-})`
-width: auto;
-max-width: 680px;
-padding: 0 15px;
-`
-
-const BodyContainerRow = Styled.section.attrs({
-    className: 'row py-lg-5',
-})`
-`
 
 function PostNewForm(props) {
-
     return (
-        <PostNewFormWrapper>
-            <Label>Title: </Label>
-            <InputText
-                type="text"
-                value={props.title}
-                onChange={(event) => { props.onTitleUpdated(event) }}
-            />
+        <div>
+            <div class="mb-3">
+                <label className="form-label">Title</label>
+                <textarea
+                    className="form-control"
+                    id="title" rows="1"
+                    value={props.title}
+                    onChange={(event) => { props.onTitleUpdated(event) }}
+                />
+            </div>
+            <div class="mb-3">
+                <label className="form-label">Content:</label>
+                <textarea
+                    className="form-control"
+                    id="title" rows="1"
+                    value={props.content}
+                    onChange={(event) => { props.onContentUpdated(event) }}
+                />
+            </div>
+            <div class="row g-3">
+                <div className="col-auto">
+                    <button
+                        className="btn btn-primary"
+                        onClick={() => { props.onNewPostCreated() }}>
+                        Create
+                    </button>
+                </div>
+                <div className="col-auto">
+                    <button
+                        className="btn btn-danger"
+                        onClick={() => { }}>
+                        Cancel
+                    </button>
+                </div>
 
-            <Label>Content: </Label>
-            <InputTextWide
-                type="text"
-                value={props.content}
-                onChange={(event) => { props.onContentUpdated(event) }}
-            />
-
-            <Button onClick={() => { props.onNewPostCreated() }}>Add Post</Button>
-            <CancelButton href={'/post/list'}>Cancel</CancelButton>
-        </PostNewFormWrapper>
+            </div>
+        </div>
     )
 }
 
@@ -135,26 +98,23 @@ class PagePostNew extends Component {
     render() {
         const { title, content, isSuccessful } = this.state
         return (
-            <BodyMain>
-                <BodyContainer>
-                    <BodyContainerRow>
-                        <Wrapper>
-                            {isSuccessful &&
-                                <InPageNotification variant="success">New post is added successfully!</InPageNotification>
-                            }
-                            <Card header="New Post">
-                                <PostNewForm
-                                    title={title}
-                                    content={content}
-                                    onTitleUpdated={this.handleChangeTitle}
-                                    onContentUpdated={this.handleChangeContent}
-                                    onNewPostCreated={this.handleNewPost}
-                                />
-                            </Card>
-                        </Wrapper>
-                    </BodyContainerRow>
-                </BodyContainer>
-            </BodyMain>
+            <main className="flex-shrink-0">
+                <div className="container">
+                    <h1 className="mt-5"> </h1>
+                    {isSuccessful &&
+                        <InPageNotification variant="success">New post is added successfully!</InPageNotification>
+                    }
+                    <Card header="New Post">
+                        <PostNewForm
+                            title={title}
+                            content={content}
+                            onTitleUpdated={this.handleChangeTitle}
+                            onContentUpdated={this.handleChangeContent}
+                            onNewPostCreated={this.handleNewPost}
+                        />
+                    </Card>
+                </div>
+            </main>
         )
     }
 }
