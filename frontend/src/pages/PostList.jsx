@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import api from '../api'
-// import Styled from 'styled-components'
+
+import dateDifference from '../functions/TimeDifference.jsx'
 
 class PagePostList extends Component {
     constructor(props) {
@@ -24,38 +25,6 @@ class PagePostList extends Component {
         })
     }
 
-    dateDifference = (postDateString) => {
-        const nowMilliseconds = new Date().getTime()
-        const postMilliseconds = new Date(postDateString).getTime()
-
-        const timeDifference = nowMilliseconds - postMilliseconds
-        const timeDifferenceInSeconds = timeDifference / 1000
-        const timeDifferenceInMinutes = timeDifference / 1000 / 60
-        const timeDifferenceInHours = timeDifference / 1000 / 60 / 60
-        const timeDifferenceInDays = timeDifference / 1000 / 60 / 60 / 24
-        const timeDifferenceInWeeks = timeDifference / 1000 / 60 / 60 / 24 / 7
-
-        if (timeDifferenceInMinutes < 1) {
-            return `${Math.round(timeDifferenceInSeconds)} seconds ago`
-        }
-
-        if (timeDifferenceInHours < 1) {
-            return `${Math.round(timeDifferenceInMinutes)} minutes ago`
-        }
-
-        if (timeDifferenceInDays < 1) {
-            return `${Math.round(timeDifferenceInHours)} hours ago`
-        }
-
-        if (timeDifferenceInWeeks < 1) {
-            return `${Math.round(timeDifferenceInDays)} days ago`
-        }
-
-        return `${Math.round(timeDifferenceInWeeks)} weeks ago`
-
-
-    }
-
     render() {
         const { posts } = this.state
 
@@ -63,11 +32,11 @@ class PagePostList extends Component {
             <main className="flex-shrink-0">
                 <div className="container">
                     {posts.map(item => {
-                        const timeDifference = this.dateDifference(item.createdTime)
+                        const timeDifference = dateDifference(item.createdTime)
                         return (
                             <a
                                 key={item._id}
-                                href={"post?id=" + item._id}
+                                href={"/post/" + item._id}
                                 className="list-group-item list-group-item-action flex-column align-items-start p-3">
                                 <div className="d-flex w-100 justify-content-between">
                                     <h5 className="mb-1">{item.title}</h5>

@@ -19,6 +19,11 @@ const updateToken = async () => {
     return token
 }
 
+export const post = async (id) => {
+    updateToken()
+    return axiosInstance.get(`/post/` + id)
+}
+
 export const postNew = async (payload) => {
     updateToken()
     return axiosInstance.post(`/post/new`, payload)
@@ -38,6 +43,7 @@ export const register = async (payload) => {
 }
 
 const apis = {
+    post: post,
     postNew: postNew,
     postList: postList,
     auth: auth,

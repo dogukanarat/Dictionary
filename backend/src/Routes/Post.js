@@ -93,6 +93,7 @@ router.get("/list", async (req, res, next) => {
     if (offset != null) actualOffset = offset
 
     postModel.find({})
+        .sort({createdTime: -1})
         .skip(start)
         .limit(offset)
         .then((payload) => { 
@@ -102,5 +103,20 @@ router.get("/list", async (req, res, next) => {
             return res.status(500).json(error);
         });
 });
+
+router.get("/:postId", async (req, res, next) => {
+
+    const { postId } = req.params
+
+    postModel.findOne({ "_id": postId })
+        .then((payload) => { 
+            res.status(200).json(payload)
+        })
+        .catch((error) => {
+            return res.status(500).json(error);
+        });
+
+});
+
 
 export default router

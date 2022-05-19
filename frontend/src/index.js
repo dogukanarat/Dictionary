@@ -3,7 +3,7 @@ import React from 'react'
 // import Styled from 'styled-components'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { NavBar } from './components'
-import { PagePostList, PagePostNew, PageLogin, PageRegister } from './pages'
+import { PagePostList, PagePostNew, PageLogin, PageRegister, PagePost } from './pages'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
 
@@ -67,6 +67,7 @@ function Body() {
     return (
         <Routes>
             <Route index element={<Home />} />
+            <Route path="/post/:postId" element={<PagePost />} />
             <Route path="/post/list" element={<PagePostList />} />
             <Route path="/post/new" element={<PagePostNew />} />
             <Route path="/login" element={<PageLogin />} />
