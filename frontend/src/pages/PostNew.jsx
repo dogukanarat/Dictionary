@@ -47,8 +47,11 @@ function PostNewForm(props) {
 }
 
 class PagePostNew extends Component {
+
     constructor(props) {
         super(props)
+
+        this.checkAuth()
 
         this.state = {
             title: '',
@@ -62,18 +65,25 @@ class PagePostNew extends Component {
     }
 
     componentDidUpdate() {
+        this.checkAuth()
+    }
+
+    checkAuth = () => {
         const token = window.localStorage.getItem("token");
 
-        if(token == null) {
+        if (token == null) {
             window.location.href = '/login'
         }
     }
+    
+
+    
 
     handleChangeTitle = async event => {
         const title = event.target.value
-        this.setState({ 
+        this.setState({
             title: title,
-            isSuccessful: false 
+            isSuccessful: false
         })
     }
 
@@ -108,18 +118,18 @@ class PagePostNew extends Component {
                 }
 
                 console.log(error)
-                    if (
-                        error.response &&
-                        error.response.status >= 400 &&
-                        error.response.status <= 500
-                    ) {
-                    }
-                })
+                if (
+                    error.response &&
+                    error.response.status >= 400 &&
+                    error.response.status <= 500
+                ) {
+                }
+            })
 
         } catch (error) {
             console.log(error)
         }
-        
+
     }
 
     render() {

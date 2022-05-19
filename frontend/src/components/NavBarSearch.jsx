@@ -4,9 +4,12 @@ import React, { Component } from 'react'
 class NavBarSearch extends Component {
     render() {
         return (
-            <form className="d-flex" role="search">
-                <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                <button className="btn btn-outline-success" type="submit">Search</button>
+            <form className="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+                <input
+                    type="search"
+                    className="form-control form-control-dark text-white bg-dark"
+                    placeholder="Search..."
+                    aria-label="Search" />
             </form>
         )
     }

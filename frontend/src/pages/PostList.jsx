@@ -30,19 +30,18 @@ class PagePostList extends Component {
         return (
             <main className="flex-shrink-0">
                 <div className="container">
-                    <h1 className="mt-5"> </h1>
                     {posts.map(item => {
                         const timeDifference = "3 day ago"
                         return (
-                            <a 
-                            href={"post?id=" + item._id}
-                            className="list-group-item list-group-item-action flex-column align-items-start">
-                                <div className="d-flex w-100 justify-content-between">
-                                    <h5 className="mb-1">{item.title}</h5>
+                            <a
+                                href={"post?id=" + item._id}
+                                className="list-group-item list-group-item-action flex-column align-items-start">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h5 class="mb-1">{item.title}</h5>
                                     <small>{timeDifference}</small>
                                 </div>
-                                <p className="mb-1">{item.content}</p>
-                                <small>{item.author}</small>
+                                
+                                <small class="text-muted">{item.author}</small>
                             </a>
                         )
                     })
